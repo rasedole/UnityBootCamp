@@ -6,21 +6,35 @@ using System.Threading.Tasks;
 
 namespace L20230725_01
 {
-    class MeshRenderer
+    class MeshRenderer : Component
     {
+        protected MeshFilter meshFilter;
+
         public MeshRenderer()
         {
 
         }
 
-        ~MeshRenderer() 
+        ~MeshRenderer()
         {
 
         }
 
+        public override void Start()
+        {
+            foreach (var component in gameObject.components)
+            {
+                if (component is MeshFilter)
+                {
+                    meshFilter = (component as MeshFilter);
+                }
+            }
+        }
+
         public virtual void Render()
         {
-            
+            Console.SetCursorPosition(transform.x,transform.y);
+            Console.WriteLine(meshFilter.shape);
         }
     }
 }
