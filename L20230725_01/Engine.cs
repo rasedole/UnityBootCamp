@@ -8,9 +8,10 @@ namespace L20230725_01
 {
     class Engine
     {
-        public Engine() 
+        protected Engine()
         {
             gameObjects = new List<GameObject>();
+            isRunning = true;
         }
 
         ~Engine()
@@ -18,7 +19,30 @@ namespace L20230725_01
 
         }
 
+        protected static Engine instance;
+
+        public static Engine GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new Engine();
+            }
+            return instance;
+        }
+
         public List<GameObject> gameObjects;
+
+        public static GameObject Find(string name)
+        {
+            foreach(var gameObject in GetInstance().gameObjects)
+            {
+                if (gameObject.name.Equals(name))
+                {
+                    return gameObject;
+                }
+            }
+            return null;
+        }
 
         public void Instantiate(GameObject newGameObject)
         {
@@ -33,7 +57,7 @@ namespace L20230725_01
         protected void GameLoop()
         {
             AllGameObjectInComponentsStart();
-            while (true)
+            while (isRunning)
             {
                 Input();
                 AllGameObjectInComponentsUpdate();
@@ -43,7 +67,8 @@ namespace L20230725_01
 
         protected void Input()
         {
-
+            ConsoleKeyInfo info = Console.ReadKey();
+            InputKey.key = info.Key;
         }
 
         protected void AllGameObjectInComponentsStart()
@@ -84,9 +109,11 @@ namespace L20230725_01
             }
         }
 
-        public void Destroy()
+        protected static bool isRunning;
+
+        public static void Quit()
         {
-            gameObjects.Clear();
+            isRunning = false;
         }
     }
 }
