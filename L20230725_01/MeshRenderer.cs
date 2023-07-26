@@ -9,6 +9,7 @@ namespace L20230725_01
     class MeshRenderer : Component
     {
         protected MeshFilter meshFilter;
+        protected Status status;
 
         public MeshRenderer()
         {
@@ -28,13 +29,48 @@ namespace L20230725_01
                 {
                     meshFilter = (component as MeshFilter);
                 }
+                if (component is Status)
+                {
+                    status = (component as Status);
+                }
             }
         }
 
         public virtual void Render()
         {
-            Console.SetCursorPosition(transform.x,transform.y);
-            Console.WriteLine(meshFilter.shape);
+            if (status == null)
+            {
+                Console.SetCursorPosition(transform.x, transform.y);
+                Console.WriteLine(meshFilter.shape);
+            }
+            else if (status.hp > 0)
+            {
+
+                Console.SetCursorPosition(transform.x, transform.y);
+                Console.WriteLine(meshFilter.shape);
+            }
+            if (gameObject.name == "enemy")
+            {
+                Console.SetCursorPosition(0, 15);
+                Console.WriteLine(' ');
+                Console.SetCursorPosition(1, 15);
+                Console.WriteLine(' ');
+                Console.SetCursorPosition(2, 15);
+                Console.WriteLine(' ');
+                Console.SetCursorPosition(0, 15);
+                Console.WriteLine(status.hp);
+            }
+            else if (gameObject.name == "player")
+            {
+                Console.SetCursorPosition(5, 15);
+                Console.WriteLine(' ');
+                Console.SetCursorPosition(6, 15);
+                Console.WriteLine(' ');
+                Console.SetCursorPosition(7, 15);
+                Console.WriteLine(' ');
+                Console.SetCursorPosition(5, 15);
+                Console.WriteLine(status.hp);
+            }
         }
     }
 }

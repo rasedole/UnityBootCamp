@@ -49,6 +49,11 @@ namespace L20230725_01
             gameObjects.Add(newGameObject);
         }
 
+        public void Destroy(GameObject removeGameObject)
+        {
+            gameObjects.Remove(removeGameObject);
+        }
+
         public void Run()
         {
             GameLoop();

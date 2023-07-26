@@ -14,11 +14,11 @@ namespace L20230725_01
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
             { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
             { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-            { 1, 0, 0, 0, 1, 0, 0, 0, 0, 1 },
-            { 1, 0, 0, 1, 1, 1, 0, 0, 1, 1 },
-            { 1, 0, 0, 1, 1, 0, 0, 1, 0, 1 },
-            { 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
-            { 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
+            { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+            { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+            { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+            { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+            { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
             { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 
@@ -74,8 +74,10 @@ namespace L20230725_01
             enemy.transform.x = 3;
             enemy.transform.y = 3;
             enemy.AddComponents(new MeshFilter('M'));
+            enemy.AddComponents(new Status(100, 0, 40));
+            enemy.AddComponents(new CheckPlayerMovable());
+            enemy.AddComponents(new MonsterController());
             enemy.AddComponents(new MeshRenderer());
-            //enemy.AddComponents(new MonsterController());
             myEngine.Instantiate(enemy);
 
             GameObject player = new GameObject();
@@ -83,9 +85,11 @@ namespace L20230725_01
             player.transform.x = 1;
             player.transform.y = 1;
             player.AddComponents(new MeshFilter('P'));
-            player.AddComponents(new MeshRenderer());
+            player.AddComponents(new Status(100, 100, 0));
             player.AddComponents(new CheckPlayerMovable());
+            player.AddComponents(new PlayerAttack());
             player.AddComponents(new PlayerController());
+            player.AddComponents(new MeshRenderer());
             myEngine.Instantiate(player);
 
             myEngine.Run();
