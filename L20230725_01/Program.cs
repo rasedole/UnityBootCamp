@@ -60,6 +60,7 @@ namespace L20230725_01
                     }
                 }
             }
+
             GameObject goal = new GameObject();
             goal.name = "goal";
             goal.transform.x = 8;
